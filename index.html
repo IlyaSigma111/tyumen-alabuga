@@ -33,43 +33,47 @@
       margin-top: 12px;
     }
     .gallery {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 40px 20px 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
     }
     .photo-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .photo-card:hover {
+      border-color: rgba(74, 122, 156, 0.3);
     }
     .photo-card .img-wrap {
       background: #11151c;
+      aspect-ratio: 4 / 3;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 200px;
-      color: #3a4a5a;
-      font-size: 14px;
+      overflow: hidden;
     }
     .photo-card .img-wrap img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
     .photo-card .caption {
-      padding: 16px 20px;
-      font-size: 14px;
+      padding: 14px 16px;
+      font-size: 13px;
       color: #a0b0c0;
       line-height: 1.5;
     }
-    .photo-card .caption .num {
-      color: #4a6a7a;
-      font-size: 12px;
-      letter-spacing: 1px;
+    .photo-card .caption .name {
+      color: #5a8aaa;
+      font-size: 13px;
+      font-weight: 600;
       margin-bottom: 4px;
     }
     .footer {
@@ -78,6 +82,11 @@
       color: #3a4a5a;
       font-size: 12px;
       border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    @media (max-width: 640px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -88,8 +97,7 @@
     <p class="desc">Фотоотчёт о том, как мы съездили и вернулись (не все)</p>
   </div>
 
-  <div class="gallery" id="gallery">
-  </div>
+  <div class="gallery" id="gallery"></div>
 
   <div class="footer">
     Тюменская делегация © 2026 — вернулись, но стали частью Алабуги
@@ -97,98 +105,88 @@
 
   <script>
     const photos = [
+
+      // ===== МЕНЯЙ ПОДПИСИ ТУТ =====
+      // Каждый объект: { file: 'ИмяФайла.jpg', caption: 'твоя шутка' }
+
       {
         file: 'Алики.jpg',
-        alt: 'Алики',
-        caption: 'Алики. Приехал с настроем покорить Алабугу. Алабуга покорила его.'
+        caption: 'Алики — напиши тут шутку'
       },
       {
         file: 'Алина.jpg',
-        alt: 'Алина',
-        caption: 'Алина. Держится уверенно, но мы знаем — внутри уже слышны отголоски корпоративного гимна.'
+        caption: 'Алина — напиши тут шутку'
       },
       {
         file: 'Артем.jpg',
-        alt: 'Артем',
-        caption: 'Артем. Смотрит вдаль и видит там синергию. Или просто хочет домой.'
+        caption: 'Артем — напиши тут шутку'
       },
       {
         file: 'Егор.jpg',
-        alt: 'Егор',
-        caption: 'Егор. Спросил «а где тут у вас туалет?», ему показали завод. Теперь он часть инфраструктуры.'
+        caption: 'Егор — напиши тут шутку'
       },
       {
         file: 'Женя (это для тебя опенкод - она девочка, типо Евгения).jpg',
-        alt: 'Женя',
-        caption: 'Женя (девочка, для OpenCode — Евгения). Единственная, кто не подписал ни одного документа. Умница.'
+        caption: 'Женя — напиши тут шутку'
       },
       {
         file: 'Иван.jpg',
-        alt: 'Иван',
-        caption: 'Иван. Уже прикидывает, как открыть тут филиал своей компании. Или хотя бы ИП.'
+        caption: 'Иван — напиши тут шутку'
       },
       {
         file: 'Ильяйца.jpg',
-        alt: 'Ильяйца',
-        caption: 'Ильяйца. Легенда, имя которой ещё в школе вписывали в дневник с ошибками. До Алабуги добрался без потерь.'
+        caption: 'Ильяйца — напиши тут шутку'
       },
       {
         file: 'Какая то бабка (так и подпишешь фото).jpg',
-        alt: 'Бабка',
-        caption: 'Какая-то бабка. Проходила мимо, попала в кадр. Теперь тоже часть делегации. Бабка, ты принята.'
+        caption: 'Бабка — напиши тут шутку'
       },
       {
         file: 'Марьяна.jpg',
-        alt: 'Марьяна',
-        caption: 'Марьяна. Всё записывает. Потом будет расшифровывать и смеяться. Или плакать.'
+        caption: 'Марьяна — напиши тут шутку'
       },
       {
         file: 'Матвеище.jpg',
-        alt: 'Матвеище',
-        caption: 'Матвеище. Не просто Матвей, а Матвеище. Приехал — и Алабуга притихла.'
+        caption: 'Матвеище — напиши тут шутку'
       },
       {
         file: 'Настя (Дубровская).jpg',
-        alt: 'Настя Дубровская',
-        caption: 'Настя Дубровская. Смотрит так, будто уже знает, кто останется здесь на стажировку.'
+        caption: 'Настя Д — напиши тут шутку'
       },
       {
         file: 'Настя (Пиманова).jpg',
-        alt: 'Настя Пиманова',
-        caption: 'Настя Пиманова. Улыбается, но в глазах — «я хочу домой, тут страшно».'
+        caption: 'Настя П — напиши тут шутку'
       },
+
     ];
 
     const gallery = document.getElementById('gallery');
 
-    photos.forEach((p, i) => {
+    photos.forEach((p) => {
       const card = document.createElement('div');
       card.className = 'photo-card';
 
-      const imgWrap = document.createElement('div');
-      imgWrap.className = 'img-wrap';
+      const wrap = document.createElement('div');
+      wrap.className = 'img-wrap';
 
       const img = document.createElement('img');
       img.src = p.file;
-      img.alt = p.alt;
-      img.onerror = function() {
-        this.style.display = 'none';
-        const placeholder = document.createElement('div');
-        placeholder.textContent = '📷 ' + p.file + ' — кинь фото сюда';
-        placeholder.style.padding = '60px 20px';
-        placeholder.style.textAlign = 'center';
-        placeholder.style.color = '#3a4a5a';
-        placeholder.style.fontSize = '14px';
-        imgWrap.appendChild(placeholder);
+      img.alt = p.caption;
+      img.onerror = function () {
+        this.remove();
+        const ph = document.createElement('div');
+        ph.textContent = '📷 ' + p.file;
+        ph.style.cssText = 'padding:40px;text-align:center;color:#3a4a5a;font-size:13px;';
+        wrap.appendChild(ph);
       };
-      imgWrap.appendChild(img);
+      wrap.appendChild(img);
 
-      const caption = document.createElement('div');
-      caption.className = 'caption';
-      caption.innerHTML = '<div class="num">' + p.alt + '</div>' + p.caption;
+      const cap = document.createElement('div');
+      cap.className = 'caption';
+      cap.innerHTML = p.caption;
 
-      card.appendChild(imgWrap);
-      card.appendChild(caption);
+      card.appendChild(wrap);
+      card.appendChild(cap);
       gallery.appendChild(card);
     });
   </script>
