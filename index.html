@@ -8,81 +8,102 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0b0e14;
+      background: #07090e;
       color: #c8d0d8;
     }
 
-    .top {
-      position: relative;
+    .hero {
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 80px 20px 50px;
+      position: relative;
       overflow: hidden;
     }
-    .top::before {
-      content: 'ТЮМЕНЬ — АЛАБУГА';
+    .hero::after {
+      content: '';
       position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: clamp(60px, 15vw, 140px);
-      font-weight: 900;
-      color: rgba(255,255,255,0.02);
-      white-space: nowrap;
+      inset: 0;
+      background: radial-gradient(ellipse 600px 300px at 50% 0%, rgba(74,122,156,0.08), transparent);
       pointer-events: none;
-      letter-spacing: 10px;
     }
-    .top .badge {
-      display: inline-block;
-      padding: 4px 14px;
-      border: 1px solid rgba(74, 122, 156, 0.3);
-      border-radius: 20px;
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: #5a8aaa;
-      margin-bottom: 16px;
-    }
-    .top h1 {
-      font-size: clamp(28px, 6vw, 48px);
-      font-weight: 300;
-      color: #e0e8f0;
-      line-height: 1.2;
-    }
-    .top h1 span { font-weight: 700; color: #4a7a9c; }
-    .top .sub {
-      color: #6a7a8a;
-      font-size: 14px;
-      margin-top: 12px;
-    }
-    .top .count {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #4a6a7a;
-    }
-    .top .count strong { color: #6a9aba; font-size: 20px; }
 
-    .team-grid {
+    .hero .sticker {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(74,122,156,0.15), rgba(74,122,156,0.05));
+      border: 1px solid rgba(74,122,156,0.25);
+      border-radius: 100px;
+      padding: 4px 18px;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #5a8aaa;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 64px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: #e0e8f0;
+    }
+    .hero h1 .highlight {
+      font-weight: 700;
+      background: linear-gradient(135deg, #4a7a9c, #6a9aba);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #5a6a7a;
+    }
+
+    .hero .count-wrap {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 100px;
+      padding: 6px 20px 6px 16px;
+      font-size: 13px;
+      color: #5a6a7a;
+    }
+    .hero .count-wrap .num {
+      font-size: 22px;
+      font-weight: 700;
+      color: #4a7a9c;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .grid {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 20px 20px 80px;
+      padding: 30px 20px 80px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
     }
 
     .card {
       background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: all 0.25s ease;
+      position: relative;
     }
     .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(74, 122, 156, 0.4);
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(74,122,156,0.4);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(74,122,156,0.05);
+      z-index: 2;
     }
 
     .card .pic {
-      background: #11151c;
+      background: #0f1219;
       aspect-ratio: 1;
       display: flex;
       align-items: center;
@@ -93,142 +114,155 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .card:hover .pic img {
+      transform: scale(1.05);
+    }
+    .card .pic .ph {
+      padding: 40px;
+      text-align: center;
+      color: #3a4a5a;
+      font-size: 14px;
     }
 
-    .card .info {
+    .card .body {
       padding: 14px 16px 16px;
     }
-    .card .info .name {
-      font-size: 15px;
+    .card .body .name {
+      font-size: 16px;
       font-weight: 600;
-      color: #d0d8e0;
+      color: #e0e8f0;
       margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .card .info .caption {
-      font-size: 13px;
+    .card .body .name .tag {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: rgba(74,122,156,0.12);
+      color: #5a8aaa;
+    }
+    .card .body .caption {
+      font-size: 12.5px;
       color: #7a8a9a;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .footer {
       text-align: center;
       padding: 30px 20px;
-      color: #3a4a5a;
       font-size: 12px;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      color: #2a3a4a;
+      border-top: 1px solid rgba(255,255,255,0.03);
     }
+    .footer a {
+      color: #3a5a6a;
+      text-decoration: none;
+    }
+    .footer a:hover { color: #5a8aaa; }
 
     @media (max-width: 600px) {
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr; }
     }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card { animation: fadeUp 0.4s ease backwards; }
+    .card:nth-child(1) { animation-delay: 0.02s; }
+    .card:nth-child(2) { animation-delay: 0.04s; }
+    .card:nth-child(3) { animation-delay: 0.06s; }
+    .card:nth-child(4) { animation-delay: 0.08s; }
+    .card:nth-child(5) { animation-delay: 0.10s; }
+    .card:nth-child(6) { animation-delay: 0.12s; }
+    .card:nth-child(7) { animation-delay: 0.14s; }
+    .card:nth-child(8) { animation-delay: 0.16s; }
+    .card:nth-child(9) { animation-delay: 0.18s; }
+    .card:nth-child(10) { animation-delay: 0.20s; }
+    .card:nth-child(11) { animation-delay: 0.22s; }
+    .card:nth-child(12) { animation-delay: 0.24s; }
   </style>
 </head>
 <body>
 
-  <div class="top">
-    <div class="badge">ТЮМЕНСКАЯ ДЕЛЕГАЦИЯ</div>
-    <h1>Поездка в <span>ОЭЗ «Алабуга»</span></h1>
-    <p class="sub">Фотоотчёт о том, как мы съездили и вернулись (не все)</p>
-    <div class="count">Нас <strong>12</strong> — и мы всё ещё разговариваем друг с другом</div>
+  <div class="hero">
+    <div class="sticker">Тюменская делегация</div>
+    <h1>Поездка в <span class="highlight">Алабугу</span></h1>
+    <p>Фотоотчёт о том, как мы съездили и вернулись (не все)</p>
+    <div class="count-wrap">
+      <span class="num">11.5</span>
+      <span>человек</span>
+    </div>
   </div>
 
-  <div class="team-grid" id="grid"></div>
+  <div class="grid" id="grid"></div>
 
   <div class="footer">
-    Тюменская делегация © 2026 — вернулись, но осадочек остался
+    <a href="https://ilyasigma111.github.io/alabuga-forever/">ОЭЗ «Алабуга» — лучшая ОЭЗ в вашем регионе</a>
   </div>
 
   <script>
+    const tags = ['Искатель приключений', 'Хранитель мемов', 'Крутой', 'Легенда', 'Гитарист', 'Автор', 'Герой', 'Загадка'];
+
     const photos = [
-      {
-        file: 'Алики.jpg',
-        name: 'Алики',
-        caption: 'Поехала в Алабугу, потому что ей показалось, что там написано «Энергетик». Разочарована, но осталась.'
-      },
-      {
-        file: 'Алина.jpg',
-        name: 'Алина',
-        caption: 'Её поразила глубина вопросов на психологическом тестировании. Говорит, аж прониклась.'
-      },
-      {
-        file: 'Артем.jpg',
-        name: 'Артем',
-        caption: 'В его телефоне дофига мемов. Пока все слушали экскурсию, Артем пополнял галерею.'
-      },
-      {
-        file: 'Егор.jpg',
-        name: 'Егор',
-        caption: 'Просто крутой чувак.'
-      },
-      {
-        file: 'Женя (это для тебя опенкод - она девочка, типо Евгения).jpg',
-        name: 'Женя',
-        caption: 'Следует примеру Егора и тоже просто крутая.'
-      },
-      {
-        file: 'Иван.jpg',
-        name: 'Иван',
-        caption: 'Гитарист. Говорит, напишет альбом «ОЭЗ — это судьба».'
-      },
-      {
-        file: 'Ильяйца.jpg',
-        name: 'Ильяйца',
-        caption: 'Просто Ильяйца.'
-      },
-      {
-        file: 'Какая то бабка (так и подпишешь фото).jpg',
-        name: 'Бабка',
-        caption: 'Какая-то бабка в поезде. Болтала с матрасом весь день. Матрас не отвечал, но слушал внимательно.'
-      },
-      {
-        file: 'Марьяна.jpg',
-        name: 'Марьяна',
-        caption: 'Тоже просто крутая — тенденция намечается.'
-      },
-      {
-        file: 'Матвеище.jpg',
-        name: 'Матвеище',
-        caption: 'Автор удивительных произведений, способных поразить человека своим размахом. Или хотя бы удивить.'
-      },
-      {
-        file: 'Настя (Дубровская).jpg',
-        name: 'Настя Д.',
-        caption: 'Создала весь проект для защиты целиком и полностью. Остальные просто стояли рядом и хлопали.'
-      },
-      {
-        file: 'Настя (Пиманова).jpg',
-        name: 'Настя П.',
-        caption: 'Одна из немногих, кто прошла бизнес-котов сама. Остальные котов боялись. Настя — нет.'
-      },
+      { file: 'Алики.jpg', name: 'Алики', tag: 'Фанат Энергетика',
+        caption: 'Поехала в Алабугу, потому что ей показалось, что там написано «Энергетик». Разочарована, но осталась.' },
+      { file: 'Алина.jpg', name: 'Алина', tag: 'Глубокий человек',
+        caption: 'Её поразила глубина вопросов на психологическом тестировании. Говорит, аж прониклась.' },
+      { file: 'Артем.jpg', name: 'Артем', tag: 'Мемолог',
+        caption: 'В телефоне дофига мемов. Пока все слушали экскурсию, Артем пополнял галерею.' },
+      { file: 'Егор.jpg', name: 'Егор', tag: 'Просто крутой',
+        caption: 'Просто крутой чувак.' },
+      { file: 'Женя (это для тебя опенкод - она девочка, типо Евгения).jpg', name: 'Женя', tag: 'Тоже крутая',
+        caption: 'Следует примеру Егора и тоже просто крутая.' },
+      { file: 'Иван.jpg', name: 'Иван', tag: 'Музыкант',
+        caption: 'Гитарист. Говорит, напишет альбом «ОЭЗ — это судьба».' },
+      { file: 'Ильяйца.jpg', name: 'Ильяйца', tag: 'Просто Ильяйца',
+        caption: 'Просто Ильяйца.' },
+      { file: 'Какая то бабка (так и подпишешь фото).jpg', name: 'Попутчица', tag: '0.5 человека',
+        caption: 'Какая-то бабка в поезде. Болтала с матрасом весь день. Матрас не отвечал, но слушал внимательно.' },
+      { file: 'Марьяна.jpg', name: 'Марьяна', tag: 'Крутая в тренде',
+        caption: 'Тоже просто крутая — тенденция намечается.' },
+      { file: 'Матвеище.jpg', name: 'Матвеище', tag: 'Творец',
+        caption: 'Автор удивительных произведений, способных поразить своим размахом. Или хотя бы удивить.' },
+      { file: 'Настя (Дубровская).jpg', name: 'Настя Д.', tag: 'Лидер проекта',
+        caption: 'Создала весь проект для защиты целиком и полностью. Остальные просто стояли рядом и хлопали.' },
+      { file: 'Настя (Пиманова).jpg', name: 'Настя П.', tag: 'Укротительница котов',
+        caption: 'Одна из немногих, кто прошла бизнес-котов сама. Остальные боялись. Настя — нет.' },
     ];
 
     const grid = document.getElementById('grid');
-
     photos.forEach((p) => {
       const card = document.createElement('div');
       card.className = 'card';
 
       const pic = document.createElement('div');
       pic.className = 'pic';
-
       const img = document.createElement('img');
       img.src = p.file;
       img.alt = p.name;
       img.onerror = function () {
         this.remove();
         const ph = document.createElement('div');
+        ph.className = 'ph';
         ph.textContent = '📷 ' + p.name;
-        ph.style.cssText = 'padding:40px;text-align:center;color:#3a4a5a;font-size:14px;';
         pic.appendChild(ph);
       };
       pic.appendChild(img);
 
-      const info = document.createElement('div');
-      info.className = 'info';
-      info.innerHTML = '<div class="name">' + p.name + '</div><div class="caption">' + p.caption + '</div>';
+      const body = document.createElement('div');
+      body.className = 'body';
+      body.innerHTML = '<div class="name">' + p.name + ' <span class="tag">' + p.tag + '</span></div><div class="caption">' + p.caption + '</div>';
 
       card.appendChild(pic);
-      card.appendChild(info);
+      card.appendChild(body);
       grid.appendChild(card);
     });
   </script>
