@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тюменская делегация — Алабуга</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0b0e14;
+      color: #c8d0d8;
+    }
+    .header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    .header h1 {
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 300;
+      color: #e0e8f0;
+      margin-bottom: 8px;
+    }
+    .header .sub {
+      color: #5a8aaa;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .header .desc {
+      color: #6a7a8a;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .gallery {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .photo-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .photo-card .img-wrap {
+      background: #11151c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      color: #3a4a5a;
+      font-size: 14px;
+    }
+    .photo-card .img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .photo-card .caption {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #a0b0c0;
+      line-height: 1.5;
+    }
+    .photo-card .caption .num {
+      color: #4a6a7a;
+      font-size: 12px;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #3a4a5a;
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="sub">Тюменская делегация</div>
+    <h1>Поездка в ОЭЗ «Алабуга»</h1>
+    <p class="desc">Фотоотчёт о том, как мы съездили и вернулись (не все)</p>
+  </div>
+
+  <div class="gallery" id="gallery">
+  </div>
+
+  <div class="footer">
+    Тюменская делегация © 2026 — вернулись, но стали частью Алабуги
+  </div>
+
+  <script>
+    const photos = [
+      {
+        file: 'Алики.jpg',
+        alt: 'Алики',
+        caption: 'Алики. Приехал с настроем покорить Алабугу. Алабуга покорила его.'
+      },
+      {
+        file: 'Алина.jpg',
+        alt: 'Алина',
+        caption: 'Алина. Держится уверенно, но мы знаем — внутри уже слышны отголоски корпоративного гимна.'
+      },
+      {
+        file: 'Артем.jpg',
+        alt: 'Артем',
+        caption: 'Артем. Смотрит вдаль и видит там синергию. Или просто хочет домой.'
+      },
+      {
+        file: 'Егор.jpg',
+        alt: 'Егор',
+        caption: 'Егор. Спросил «а где тут у вас туалет?», ему показали завод. Теперь он часть инфраструктуры.'
+      },
+      {
+        file: 'Женя (это для тебя опенкод - она девочка, типо Евгения).jpg',
+        alt: 'Женя',
+        caption: 'Женя (девочка, для OpenCode — Евгения). Единственная, кто не подписал ни одного документа. Умница.'
+      },
+      {
+        file: 'Иван.jpg',
+        alt: 'Иван',
+        caption: 'Иван. Уже прикидывает, как открыть тут филиал своей компании. Или хотя бы ИП.'
+      },
+      {
+        file: 'Ильяйца.jpg',
+        alt: 'Ильяйца',
+        caption: 'Ильяйца. Легенда, имя которой ещё в школе вписывали в дневник с ошибками. До Алабуги добрался без потерь.'
+      },
+      {
+        file: 'Какая то бабка (так и подпишешь фото).jpg',
+        alt: 'Бабка',
+        caption: 'Какая-то бабка. Проходила мимо, попала в кадр. Теперь тоже часть делегации. Бабка, ты принята.'
+      },
+      {
+        file: 'Марьяна.jpg',
+        alt: 'Марьяна',
+        caption: 'Марьяна. Всё записывает. Потом будет расшифровывать и смеяться. Или плакать.'
+      },
+      {
+        file: 'Матвеище.jpg',
+        alt: 'Матвеище',
+        caption: 'Матвеище. Не просто Матвей, а Матвеище. Приехал — и Алабуга притихла.'
+      },
+      {
+        file: 'Настя (Дубровская).jpg',
+        alt: 'Настя Дубровская',
+        caption: 'Настя Дубровская. Смотрит так, будто уже знает, кто останется здесь на стажировку.'
+      },
+      {
+        file: 'Настя (Пиманова).jpg',
+        alt: 'Настя Пиманова',
+        caption: 'Настя Пиманова. Улыбается, но в глазах — «я хочу домой, тут страшно».'
+      },
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    photos.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'photo-card';
+
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'img-wrap';
+
+      const img = document.createElement('img');
+      img.src = p.file;
+      img.alt = p.alt;
+      img.onerror = function() {
+        this.style.display = 'none';
+        const placeholder = document.createElement('div');
+        placeholder.textContent = '📷 ' + p.file + ' — кинь фото сюда';
+        placeholder.style.padding = '60px 20px';
+        placeholder.style.textAlign = 'center';
+        placeholder.style.color = '#3a4a5a';
+        placeholder.style.fontSize = '14px';
+        imgWrap.appendChild(placeholder);
+      };
+      imgWrap.appendChild(img);
+
+      const caption = document.createElement('div');
+      caption.className = 'caption';
+      caption.innerHTML = '<div class="num">' + p.alt + '</div>' + p.caption;
+
+      card.appendChild(imgWrap);
+      card.appendChild(caption);
+      gallery.appendChild(card);
+    });
+  </script>
+</body>
+</html>
