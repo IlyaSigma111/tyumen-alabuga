@@ -78,10 +78,26 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .grid {
+    .section-title {
+      text-align: center;
+      padding: 60px 20px 10px;
+      font-size: 24px;
+      font-weight: 300;
+      color: #d0d8e0;
+    }
+    .section-title .sub {
+      font-size: 12px;
+      color: #4a6a7a;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .team-grid {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 30px 20px 80px;
+      padding: 20px 20px 60px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 14px;
@@ -93,7 +109,6 @@
       border-radius: 16px;
       overflow: hidden;
       transition: all 0.25s ease;
-      position: relative;
     }
     .card:hover {
       transform: translateY(-6px) scale(1.02);
@@ -137,6 +152,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
     .card .body .name .tag {
       font-size: 9px;
@@ -154,6 +170,43 @@
       line-height: 1.55;
     }
 
+    .gallery {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 20px 80px;
+      columns: 4 220px;
+      column-gap: 12px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.25s ease;
+    }
+    .gallery-item:hover {
+      border-color: rgba(74,122,156,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+    }
+    .gallery-item .gi-ph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+      color: #3a4a5a;
+      font-size: 13px;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
     .footer {
       text-align: center;
       padding: 30px 20px;
@@ -168,7 +221,8 @@
     .footer a:hover { color: #5a8aaa; }
 
     @media (max-width: 600px) {
-      .grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .gallery { columns: 2; }
     }
 
     @keyframes fadeUp {
@@ -202,16 +256,26 @@
     </div>
   </div>
 
-  <div class="grid" id="grid"></div>
+  <div class="section-title">
+    Кто ездил
+    <div class="sub">Состав делегации</div>
+  </div>
+
+  <div class="team-grid" id="grid"></div>
+
+  <div class="section-title">
+    Фото с поездки
+    <div class="sub">Все моменты в одну ленту</div>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
 
   <div class="footer">
     <a href="https://ilyasigma111.github.io/alabuga-forever/">ОЭЗ «Алабуга» — лучшая ОЭЗ в вашем регионе</a>
   </div>
 
   <script>
-    const tags = ['Искатель приключений', 'Хранитель мемов', 'Крутой', 'Легенда', 'Гитарист', 'Автор', 'Герой', 'Загадка'];
-
-    const photos = [
+    const team = [
       { file: 'Алики.jpg', name: 'Алики', tag: 'Фанат Энергетика',
         caption: 'Поехала в Алабугу, потому что ей показалось, что там написано «Энергетик». Разочарована, но осталась.' },
       { file: 'Алина.jpg', name: 'Алина', tag: 'Глубокий человек',
@@ -239,7 +303,7 @@
     ];
 
     const grid = document.getElementById('grid');
-    photos.forEach((p) => {
+    team.forEach((p) => {
       const card = document.createElement('div');
       card.className = 'card';
 
@@ -265,6 +329,48 @@
       card.appendChild(body);
       grid.appendChild(card);
     });
+
+    const galleryFiles = [
+      'Галерея/2J_DxdziOhDSvFnSFC6csWAYvg1-rOBvDVZYlBIjrN8qpokbdb3wiAp4c8EdyQHOUqSNbESuGm3sUIJM8A0TLy6C.jpg',
+      'Галерея/2nWYWMs01FWVvQt6mpfL0EC5QcYiyHsON4hJ8WO5No6ygY9e-88VWRNUwuizEYwiwpVhk5I2MECwhZLFNw2yzECd (1).jpg',
+      'Галерея/dbK2_BObyO4WnAmNPYPW2-BkBbyqsVWWScsMD6FRwcoWec7kuYIWYF6r0iVinzT5pbPmLTuz3_EHe3j6rD1oqmiD.jpg',
+      'Галерея/I-foRWieBAbgwBNmKlFgps_InPoWTJ9pbtTXHwDQjrMNvbedDo5NwXJixN347a58UfXbfqFEDo3x6Cxgv_alMrjT.jpg',
+      'Галерея/MXR2AU4YjvNHkU50InQ-ohef90aEZ6i6nrA9uLr2mz2oyC54cKbITu_c5TOXxfPP9DkZ6Vg6K1437dTz0qx60hPY.jpg',
+      'Галерея/nIHmRnNMEdodsB1TeFxqoj1ozXH83bKnj8HKPjcZ8fUPYDSKrg5lOWsBtXjBc3Ua5ToAWru7zMMl0hP-MetCEuCN.jpg',
+      'Галерея/PJP7YSX8GrkQidQ7JGi9EYJ4w3alxgQQZsMISwRgIzxs6DRKFJAq42-wVP0uZG5rzeHhRzAQexK72WwdKg93PiYs.jpg',
+      'Галерея/q5qOWqIoQNeb0OpwcQ44flzYlZlcSLqUhnwqdze6VfZQUeOEiy1uTBCeBWYLPgEZt9VFQw1Fcq5RVDoeOIx0IV_m.jpg',
+      'Галерея/rBb6oJ8PiBWtoPt2oY-8_J_MFoifSsGL6WHAVo2GpzU-IezY60AuN6uF5cqc9X4FvS8D1x_bJlm44caW_v5FPBe1.jpg',
+      'Галерея/tqiDBSrS3XAahBZsvec-mqjRKZfpV7sUnSf9TndGoeve_8BfIZ_yaSVyFyqciNkt_OTcO2VyBWmm4kud-v3UwNay.jpg',
+      'Галерея/VmO1QV0Qpl-xMy3dohjvKBJDnJsaY6u-IfXqypuTPhPEJWosSw43mrXnYBZYO3EMp3XK796b_ghPHIUP-C2EOKHT.jpg',
+      'Галерея/woDcNK__lnIEuKLpRzrZtEqN0mGcijlbwSeGE0baqvakTmFcSwsWhcrue4-qfg_U-GA0rfk3VsN2QeqNqrTQ1Wr-.jpg',
+      'Галерея/Yq92JdRLd0L3tJ08awI7FiTvDZKq7GqHQJRjzAfxdZuGAv2qvFhXBWa38r3f3qjKlzDtxpln3QUbGCuWmRJsn-hY.jpg',
+    ];
+
+    const galleryEl = document.getElementById('gallery');
+    galleryFiles.forEach((f) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+
+      const img = document.createElement('img');
+      img.src = f;
+      img.alt = '';
+      img.onerror = function () {
+        this.remove();
+        const ph = document.createElement('div');
+        ph.className = 'gi-ph';
+        ph.textContent = '📷 ' + f;
+        item.appendChild(ph);
+      };
+      item.appendChild(img);
+      galleryEl.appendChild(item);
+    });
+
+    if (galleryFiles.length === 0) {
+      const empty = document.createElement('div');
+      empty.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #3a4a5a;';
+      empty.textContent = 'Фото пока не загружены — кидай в папку и добавляй названия в массив galleryFiles';
+      galleryEl.appendChild(empty);
+    }
   </script>
 </body>
 </html>
